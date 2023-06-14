@@ -40,9 +40,9 @@ pasajeros_vuelos = pd.merge(pasajeros_sin_duplicados,vuelos, left_on='ID_Pasajer
 pasajeros_vuelos_aero_lineas = pd.merge(pasajeros_vuelos, df_lineas_aereas, left_on='Cve_LA', right_on='Code', how="left")
 pasajeros_vuelos_aero_lineas.fillna('Otra', inplace=True)
 
-fecha = pasajeros_vuelos_aero_lineas[['Viaje']]
+fecha = pasajeros_vuelos_aero_lineas[['Viaje']].copy()
 fecha[['Mes', 'Dia', 'Año']] = fecha['Viaje'].str.split('/', expand=True)
-fecha = fecha[['Mes', 'Dia', 'Año']]
+del fecha['Viaje']
 
 pasajeros_vuelos_aero_lineas_fecha = pd.merge(pasajeros_vuelos_aero_lineas, fecha, left_index=True, right_index=True)
 
